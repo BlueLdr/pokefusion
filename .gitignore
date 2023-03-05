@@ -4,3 +4,4 @@ CustomBattlersVisible/*.png
 node_modules
 dist
 .vite
+*.local

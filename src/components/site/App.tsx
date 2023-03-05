@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { Main } from "~/components";
+import { IntroModal, Main } from "~/components";
 import { Header } from "./Header";
 
 import Box from "@mui/material/Box";
@@ -38,6 +38,7 @@ export const App: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
           <Main />
         </Container>
       </SiteContainer>
+      <IntroModal />
     </Box>
   </>
 );

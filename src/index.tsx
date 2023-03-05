@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
+import { FavoritesProvider } from "~/context";
 import { ThemeProvider } from "~/theme";
 import { App } from "~/components";
 
@@ -27,6 +29,10 @@ const renderApp = (node: React.ReactNode) => {
 
 renderApp(
   <ThemeProvider>
-    <App />
+    <FavoritesProvider>
+      <BrowserRouter basename="/pokefusion">
+        <App />
+      </BrowserRouter>
+    </FavoritesProvider>
   </ThemeProvider>
 );

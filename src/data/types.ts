@@ -9,11 +9,8 @@ export interface PokemonMeta {
 }
 
 export interface Pokemon extends PokemonMeta {
-  id: number;
-  name: string;
   types: readonly [PokemonType, PokemonType?];
   stats: PokemonStats;
-  shiny?: boolean;
 }
 
 export interface PokemonStats {
@@ -477,10 +474,18 @@ export enum PokemonId {
   "stunfisk" = 420,
 }
 
-export interface PokemonFusion extends Pokemon {
-  baseIds: [PokemonId, PokemonId];
+export interface PokemonFusionMeta {
+  head: PokemonMeta;
+  body: PokemonMeta;
   fusionId: string;
   fusionDexId: number;
+  sprite?: FusionSprite;
+}
+
+export interface PokemonFusion
+  extends Omit<PokemonFusionMeta, "head" | "body"> {
+  head: Pokemon;
+  body: Pokemon;
 }
 
 export interface FusionSprite {

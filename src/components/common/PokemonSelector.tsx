@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { useCallback } from "react";
 
 import { enumValues, getPokemonName } from "~/utils";
@@ -12,6 +13,18 @@ import type {
   AutocompleteProps,
 } from "@mui/material/Autocomplete";
 import type { TextFieldProps } from "@mui/material/TextField";
+
+//================================================
+
+const StyledTextField = styled(TextField)`
+  width: 100%;
+  flex: 1 1 100%;
+  max-width: ${({ theme }) => theme.spacing(64)};
+  // width: ${({ theme }) => theme.spacing(40)};
+  // ${({ theme }) => theme.breakpoints.up("md")} {
+  //   width: ${({ theme }) => theme.spacing(64)};
+  }
+`;
 
 //================================================
 
@@ -51,11 +64,12 @@ export const PokemonSelector: React.FC<PokemonSelectorProps> = ({
       // @ts-expect-error: initial value = null to make the input controlled
       value={value}
       onChange={onChangeHandler}
-      sx={{ maxWidth: theme => theme.spacing(64) }}
       {...props}
       disableClearable
       autoHighlight
-      renderInput={params => <TextField {...params} {...(fieldProps ?? {})} />}
+      renderInput={params => (
+        <StyledTextField {...params} {...(fieldProps ?? {})} />
+      )}
       options={options}
       renderOption={renderOption}
       getOptionLabel={getOptionLabel}

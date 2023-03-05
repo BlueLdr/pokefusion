@@ -1,3 +1,5 @@
+import { POKEMON_COUNT } from "~/data";
+
 import type { PokemonId } from "~/data";
 
 const shinyColorOffsetsDict: Partial<Record<PokemonId, number>> = {
@@ -52,7 +54,7 @@ export const calculateShinyHueDeafult = (
   hasShinyHead: boolean,
   hasShinyBody: boolean
 ) => {
-  let dexOffset = id1 + id2 * 420;
+  let dexOffset = id1 + id2 * POKEMON_COUNT;
   const dexDiff = Math.abs(id2 - id1);
 
   if (hasShinyHead && !hasShinyBody) {
@@ -62,7 +64,7 @@ export const calculateShinyHueDeafult = (
   }
 
   let offset = dexOffset + 75;
-  if (offset > 420) {
+  if (offset > POKEMON_COUNT) {
     offset /= 360;
   }
   if (offset < 40) {

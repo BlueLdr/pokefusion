@@ -1,10 +1,36 @@
+import { POKEMON_COUNT } from "~/data";
 import { doesImageExist } from "~/utils";
 
-import type { PokemonId, FusionSprite, Pokemon } from "~/data";
+import type {
+  PokemonId,
+  FusionSprite,
+  Pokemon,
+  PokemonMeta,
+  PokemonFusionMeta,
+} from "~/data";
 
 //================================================
 
+export const fusePokemonMeta = (
+  head: PokemonMeta,
+  body: PokemonMeta,
+  sprite?: FusionSprite
+): PokemonFusionMeta => ({
+  head,
+  body,
+  sprite,
+  get fusionId() {
+    return `${this.head.id}.${this.body.id}`;
+  },
+  get fusionDexId() {
+    return getFusionId(this.head.id, this.body.id);
+  },
+});
+
 export const fusePokemon = (id1: number, id2: number) => {};
+
+export const getFusionId = (id1: number, id2: number) =>
+  id1 + id2 * POKEMON_COUNT;
 
 export const getFusionSprite = async (
   id1: PokemonId,
