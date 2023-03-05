@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 import mkcert from "vite-plugin-mkcert";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { viteSingleFile } from "vite-plugin-singlefile";
 
 var envPrefix = ["POKEFUSION_UI_", "VITE_"] as string[];
 
@@ -20,6 +21,10 @@ export default defineConfig(config => {
       htmlPlugin(env),
       basicSsl(),
       // mkcert(),
+      viteSingleFile({
+        inlinePattern: ["**/*.js"],
+        deleteInlinedFiles: true,
+      }),
     ],
     envPrefix,
     server: {
