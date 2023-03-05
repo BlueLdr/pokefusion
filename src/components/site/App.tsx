@@ -3,9 +3,12 @@ import styled from "@emotion/styled";
 import { IntroModal, Main } from "~/components";
 import { Header } from "./Header";
 
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
 
 //================================================
 
@@ -37,6 +40,31 @@ export const App: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
         <Container component={Body}>
           <Main />
         </Container>
+        <Grid
+          container
+          component="footer"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Typography color="textSecondary" variant="button">
+            Made by{" "}
+            <Button
+              component="a"
+              sx={{ margin: theme => theme.spacing(-0.5, -2, 0) }}
+              href="https://github.com/BlueLdr/pokefusion/"
+            >
+              BlueLdr
+            </Button>
+            , forked from{" "}
+            <Button
+              component="a"
+              sx={{ margin: theme => theme.spacing(-0.5, -2, 0) }}
+              href="https://github.com/Aegide/Aegide.github.io"
+            >
+              Aegide.github.io
+            </Button>
+          </Typography>
+        </Grid>
       </SiteContainer>
       <IntroModal />
     </Box>

@@ -1,4 +1,6 @@
-import { loadStorage, useModalToggle } from "~/utils";
+import { useCallback, useState } from "react";
+
+import { loadStorage, setStorage } from "~/utils";
 import { Modal } from "~/components";
 
 import List from "@mui/material/List";
@@ -23,7 +25,11 @@ const listStyle: StyleProps = {
 //================================================
 
 export const IntroModal: React.FC = () => {
-  const [open, , closeModal] = useModalToggle(!introViewed);
+  const [open, setOpen] = useState(!introViewed);
+  const closeModal = useCallback(() => {
+    setOpen(false);
+    setStorage(INTRO_VIEWED_KEY, true);
+  }, []);
 
   if (introViewed) {
     return null;
