@@ -486,6 +486,7 @@ export interface PokemonFusion
   extends Omit<PokemonFusionMeta, "head" | "body"> {
   head: Pokemon;
   body: Pokemon;
+  types: [PokemonType, PokemonType?];
 }
 
 export interface FusionSprite {

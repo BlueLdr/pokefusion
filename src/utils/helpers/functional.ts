@@ -1,7 +1,4 @@
-import { createDisplayableError } from "~/utils";
-
 import type { ApiResponse } from "~/api";
-import type { DisplayableError } from "~/utils";
 
 //================================================
 
@@ -32,30 +29,6 @@ export const debounce = <T extends (...args: any[]) => any>(
   return invoke;
 };
 
-export const mockRequest = <T>(
-  data: T,
-  timeout = 1000,
-  error?: string | DisplayableError
-) =>
-  new Promise<ApiResponse<T>>(resolve => {
-    setTimeout(
-      () =>
-        resolve({
-          ...(error
-            ? {
-                data: undefined,
-                error: createDisplayableError(error, "Fake error"),
-              }
-            : {
-                data,
-                error: undefined,
-              }),
-          axiosResponse: {} as any,
-        }),
-      2000
-    );
-  });
-
 export const promiseAll = async <T>(promises: {
   [K in keyof T]: Promise<ApiResponse<T[K]>>;
 }): Promise<ApiResponse<T>> => {
@@ -77,6 +50,5 @@ export const promiseAll = async <T>(promises: {
       return obj;
     }, {} as T),
     error: undefined,
-    axiosResponse: {} as any,
   };
 };

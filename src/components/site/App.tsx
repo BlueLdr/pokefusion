@@ -45,6 +45,7 @@ export const App: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
           component="footer"
           alignItems="center"
           justifyContent="center"
+          mt={4}
         >
           <Typography color="textSecondary" variant="button">
             Made by{" "}
@@ -52,6 +53,7 @@ export const App: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
               component="a"
               sx={{ margin: theme => theme.spacing(-0.5, -2, 0) }}
               href="https://github.com/BlueLdr/pokefusion/"
+              target="_blank"
             >
               BlueLdr
             </Button>
@@ -60,6 +62,7 @@ export const App: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
               component="a"
               sx={{ margin: theme => theme.spacing(-0.5, -2, 0) }}
               href="https://github.com/Aegide/Aegide.github.io"
+              target="_blank"
             >
               Aegide.github.io
             </Button>

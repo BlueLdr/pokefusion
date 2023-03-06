@@ -80,7 +80,11 @@ export const FavoritesMenu: React.FC = () => {
       >
         {list.size === 0 && <MenuItem>You have no saved favorites.</MenuItem>}
         {Array.from(list.entries()).map(([key, fusion]) => (
-          <MenuItem sx={listItemStyle} onClick={() => handleSelect(fusion)}>
+          <MenuItem
+            key={key}
+            sx={listItemStyle}
+            onClick={() => handleSelect(fusion)}
+          >
             <Typography color="textSecondary" pr={3}>
               {key}
             </Typography>

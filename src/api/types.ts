@@ -1,16 +1,13 @@
-import type { AxiosError, AxiosResponse } from "axios";
 import type { DisplayableError } from "~/utils";
 
 export interface ApiErrorResponse {
   data?: null;
   error: DisplayableError;
-  axiosResponse: AxiosResponse | AxiosError | null;
   // meta?: undefined;
 }
 export interface ApiSuccessResponse<R> {
   data: R;
   error?: null;
-  axiosResponse: AxiosResponse<R> | null;
   // meta?: ApiResponseMeta;
 }
 

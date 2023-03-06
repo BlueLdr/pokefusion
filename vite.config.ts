@@ -31,6 +31,7 @@ export default defineConfig(config => {
       https: true,
       port: 3000,
     },
+    assetsInclude: ["public/**/*"],
     base: env.BASE_URL,
   };
 });

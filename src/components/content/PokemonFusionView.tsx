@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
 
+import { PokemonFusionData } from "./PokemonFusionData";
 import { useFusionMeta } from "~/utils";
 import { FavoritesButton } from "./FavoritesButton";
 
-import Chip from "@mui/material/Chip";
 import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
@@ -67,7 +69,7 @@ export const PokemonFusionView: React.FC<PokemonFusionViewProps> = ({
           action={
             <Grid container justifyContent="flex-end" alignItems="center">
               {fusionMeta.sprite?.isCustom && (
-                <Chip color="primary" label="Custom Sprite" />
+                <Chip color="success" label="Custom Sprite" />
               )}
               <FavoritesButton fusion={fusionMeta} />
             </Grid>
@@ -84,6 +86,11 @@ export const PokemonFusionView: React.FC<PokemonFusionViewProps> = ({
           />
         </ImgContainer>
       </CardContent>
+      {fusionMeta && (
+        <CardActionArea>
+          <PokemonFusionData meta={fusionMeta} />
+        </CardActionArea>
+      )}
     </Card>
   );
 };
