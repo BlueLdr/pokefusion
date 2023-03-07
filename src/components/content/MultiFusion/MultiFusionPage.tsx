@@ -33,16 +33,18 @@ interface MultiFusionPreset {
 const MULTI_FUSION_STATE_STORAGE_KEY = "multi-fusion-state";
 const MULTI_FUSION_PRESETS_STORAGE_KEY = "multi-fusion-presets";
 
-const initialState = loadStorage<MultiFusionState>(
-  MULTI_FUSION_STATE_STORAGE_KEY
-);
-const initialPresets = loadStorage<MultiFusionPreset[]>(
-  MULTI_FUSION_PRESETS_STORAGE_KEY
-);
-
 //================================================
 
 export const MultiFusionPage: React.FC = () => {
+  const initialState = useMemo(
+    () => loadStorage<MultiFusionState>(MULTI_FUSION_STATE_STORAGE_KEY),
+    []
+  );
+  const initialPresets = useMemo(
+    () => loadStorage<MultiFusionPreset[]>(MULTI_FUSION_PRESETS_STORAGE_KEY),
+    []
+  );
+
   const [otherMonValue, setOtherMonValue] = useState<PokemonId>(
     initialState?.otherMon as PokemonId
   );

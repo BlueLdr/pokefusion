@@ -5,6 +5,7 @@ import { MultiFusionRowPicker } from "./MultiFusionRowPicker";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import WestRounded from "@mui/icons-material/WestRounded";
 
 import type { PokemonId, PokemonMeta } from "~/data";
 
@@ -60,6 +61,15 @@ export const MultiFusionRow: React.FC<MultiFusionRowProps> = ({
             justifyContent="center"
             minHeight="100%"
           >
+            <Grid
+              container
+              width="auto"
+              mr={4}
+              minHeight="100%"
+              alignItems="center"
+            >
+              <WestRounded color="disabled" />
+            </Grid>
             <Typography color="textSecondary">
               Select a Pokemon to add a row
             </Typography>
