@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import { FavoritesProvider } from "~/context";
 import { ThemeProvider } from "~/theme";
@@ -30,9 +30,9 @@ const renderApp = (node: React.ReactNode) => {
 renderApp(
   <ThemeProvider>
     <FavoritesProvider>
-      <BrowserRouter basename="/pokefusion">
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </FavoritesProvider>
   </ThemeProvider>
 );

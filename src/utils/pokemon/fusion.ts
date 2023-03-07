@@ -1,12 +1,17 @@
-import { POKEMON_COUNT } from "~/data";
+import {
+  POKEMON_COUNT,
+  PokemonType,
+  POKEMON_SELF_FUSION_TYPE_OVERRIDES,
+  POKEMON_TYPE_OVERRIDES,
+} from "~/data";
 import { doesImageExist } from "~/utils";
 
 import type {
-  PokemonId,
   FusionSprite,
   Pokemon,
-  PokemonMeta,
   PokemonFusionMeta,
+  PokemonId,
+  PokemonMeta,
 } from "~/data";
 
 //================================================
@@ -58,11 +63,34 @@ export const getFusionSprite = async (
   };
 };
 
+const checkTypeFusionExceptions = (mon: Pokemon): Pokemon["types"] => {
+  if (POKEMON_TYPE_OVERRIDES.has(mon.id)) {
+    return POKEMON_TYPE_OVERRIDES.get(mon.id)!;
+  }
+  if (
+    mon.types[0] === PokemonType.Normal &&
+    mon.types[1] === PokemonType.Flying
+  ) {
+    return [PokemonType.Flying];
+  }
+  return mon.types;
+};
+
 export const fuseTypes = (mon1: Pokemon, mon2: Pokemon): Pokemon["types"] => {
-  const types1 = mon1.types;
-  const types2 = mon2.types;
-  // if both are single type
+  let types1: Pokemon["types"];
+  let types2: Pokemon["types"];
+
+  // prepare types by checking for exceptions
+  if (mon1.id === mon2.id && POKEMON_SELF_FUSION_TYPE_OVERRIDES.has(mon1.id)) {
+    types1 = POKEMON_SELF_FUSION_TYPE_OVERRIDES.get(mon1.id)!;
+    types2 = types1;
+  } else {
+    types1 = checkTypeFusionExceptions(mon1);
+    types2 = checkTypeFusionExceptions(mon2);
+  }
+
   if (types1.length === 1 && types2.length === 1) {
+    // if both are single type
     const type1 = types1[0];
     const type2 = types2[0];
     return type1 === type2 ? [type1] : [type1, type2];

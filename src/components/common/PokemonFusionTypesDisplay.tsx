@@ -10,14 +10,15 @@ import type { Pokemon, PokemonFusionMeta } from "~/data";
 //================================================
 
 const TypeImg = styled.img`
-  height: ${({ theme }) => theme.spacing(10)};
+  height: ${({ theme }) => theme.spacing(10.5)};
+  width: ${({ theme }) => theme.spacing(24)};
 `;
 
 //================================================
 
-export const PokemonFusionData: React.FC<{ meta: PokemonFusionMeta }> = ({
-  meta,
-}) => {
+export const PokemonFusionTypesDisplay: React.FC<{
+  meta: PokemonFusionMeta;
+}> = ({ meta }) => {
   const [types, setTypes] = useState<Pokemon["types"]>();
   useEffect(() => {
     promiseAll({

@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 
-import { PokemonFusionData } from "./PokemonFusionData";
 import { useFusionMeta } from "~/utils";
-import { FavoritesButton } from "./FavoritesButton";
+import { FavoritesButton, PokemonFusionTypesDisplay } from "~/components";
 
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
@@ -88,7 +87,7 @@ export const PokemonFusionView: React.FC<PokemonFusionViewProps> = ({
       </CardContent>
       {fusionMeta && (
         <CardActionArea>
-          <PokemonFusionData meta={fusionMeta} />
+          <PokemonFusionTypesDisplay meta={fusionMeta} />
         </CardActionArea>
       )}
     </Card>

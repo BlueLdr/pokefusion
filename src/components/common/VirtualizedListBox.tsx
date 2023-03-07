@@ -39,7 +39,7 @@ function renderRow(props: ListChildComponentProps) {
       selected={state.selected}
       style={inlineStyle}
     >
-      <Grid container alignItems="center">
+      <Grid container alignItems="center" minWidth="max-content">
         <Grid
           item
           textAlign="right"
@@ -50,7 +50,7 @@ function renderRow(props: ListChildComponentProps) {
         >
           {id}.
         </Grid>
-        <Grid item ml={2}>
+        <Grid item ml={2} minWidth="fit-content">
           {getPokemonName(id)}
         </Grid>
       </Grid>

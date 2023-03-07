@@ -1,8 +1,8 @@
 //#region Stats
 
-import { PokemonId } from "./types";
+import { PokemonId, PokemonType } from "./types";
 
-import type { PokemonStats } from "./types";
+import type { PokemonStats, Pokemon } from "./types";
 
 export const POKEMON_STATS_FIXES = {
   //Aegislash
@@ -374,5 +374,54 @@ export const statsException = [
 
 //Output
 export const statsFix = Object.values(POKEMON_STATS_FIXES);
+
+//#endregion
+
+//#region Types
+
+export const POKEMON_TYPE_OVERRIDES = new Map<PokemonId, Pokemon["types"]>([
+  [PokemonId.magnemite, [PokemonType.Steel, PokemonType.Electric]],
+  [PokemonId.magneton, [PokemonType.Steel, PokemonType.Electric]],
+  [PokemonId.dewgong, [PokemonType.Ice, PokemonType.Water]],
+  [PokemonId.omanyte, [PokemonType.Water, PokemonType.Rock]],
+  [PokemonId.omastar, [PokemonType.Water, PokemonType.Rock]],
+  [PokemonId.scizor, [PokemonType.Steel, PokemonType.Bug]],
+  [PokemonId.magnezone, [PokemonType.Steel, PokemonType.Electric]],
+  [PokemonId.empoleon, [PokemonType.Steel, PokemonType.Water]],
+  [PokemonId.spiritomb, [PokemonType.Dark, PokemonType.Ghost]],
+  [PokemonId.ferrothorn, [PokemonType.Steel, PokemonType.Grass]],
+  [PokemonId.celebi, [PokemonType.Grass, PokemonType.Psychic]],
+  [PokemonId.bulbasaur, [PokemonType.Grass]],
+  [PokemonId.ivysaur, [PokemonType.Grass]],
+  [PokemonId.venusaur, [PokemonType.Grass]],
+  [PokemonId.charizard, [PokemonType.Fire]],
+  [PokemonId.geodude, [PokemonType.Rock]],
+  [PokemonId.graveler, [PokemonType.Rock]],
+  [PokemonId.golem, [PokemonType.Rock]],
+  [PokemonId.gastly, [PokemonType.Ghost]],
+  [PokemonId.haunter, [PokemonType.Ghost]],
+  [PokemonId.gengar, [PokemonType.Ghost]],
+  [PokemonId.onix, [PokemonType.Rock]],
+  [PokemonId.scyther, [PokemonType.Bug]],
+  [PokemonId.gyarados, [PokemonType.Water]],
+  [PokemonId.articuno, [PokemonType.Ice]],
+  [PokemonId.zapdos, [PokemonType.Electric]],
+  [PokemonId.moltres, [PokemonType.Fire]],
+  [PokemonId.dragonite, [PokemonType.Dragon]],
+  [PokemonId.steelix, [PokemonType.Steel]],
+]);
+
+export const POKEMON_SELF_FUSION_TYPE_OVERRIDES = new Map<
+  PokemonId,
+  Pokemon["types"]
+>([
+  [PokemonId.pinsir, [PokemonType.Bug, PokemonType.Flying]],
+  [PokemonId.ampharos, [PokemonType.Electric, PokemonType.Dragon]],
+  [PokemonId.lopunny, [PokemonType.Normal, PokemonType.Fighting]],
+  [PokemonId.sceptile, [PokemonType.Grass, PokemonType.Dragon]],
+  [PokemonId.gyarados, [PokemonType.Water, PokemonType.Dark]],
+  [PokemonId.aggron, [PokemonType.Steel]],
+  [PokemonId.groudon, [PokemonType.Ground, PokemonType.Fire]],
+]);
 
 //#endregion

@@ -10,7 +10,7 @@ export const getRouteFromFusion = (fusion: PokemonFusionMeta): To => {
     params.set("rightShiny", "true");
   }
   return {
-    hash: fusion.fusionId,
+    pathname: fusion.fusionId,
     search: params.toString(),
   };
 };

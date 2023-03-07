@@ -1,11 +1,18 @@
+import { Link } from "react-router-dom";
+
 import { SpacedGrid } from "~/components";
 import { FavoritesMenu } from "./FavoritesMenu";
 
 import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import CatchingPokemon from "@mui/icons-material/CatchingPokemon";
+import BallotRounded from "@mui/icons-material/BallotRounded";
+
+//================================================
 
 export const Header: React.FC = () => {
   return (
@@ -27,6 +34,16 @@ export const Header: React.FC = () => {
               justifyContent="flex-end"
               edge="end"
             >
+              <Button component={Link} to="/" startIcon={<CatchingPokemon />}>
+                Single Fusion
+              </Button>
+              <Button
+                component={Link}
+                to="/multi"
+                startIcon={<BallotRounded />}
+              >
+                Multi Fusion
+              </Button>
               <FavoritesMenu />
             </SpacedGrid>
           }

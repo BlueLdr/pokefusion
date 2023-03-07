@@ -1,14 +1,12 @@
 import styled from "@emotion/styled";
 
-import { IntroModal, Main } from "~/components";
+import { IntroModal } from "~/components";
+import { AppRouter } from "./AppRouter";
+import { Footer } from "./Footer";
 import { Header } from "./Header";
 
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
 
 //================================================
 
@@ -31,43 +29,16 @@ const Body = styled.main`
 `;
 Body.displayName = "Body";
 
-export const App: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+export const App: React.FC = () => (
   <>
     <CssBaseline />
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <SiteContainer flexGrow={1}>
         <Header />
-        <Container component={Body}>
-          <Main />
-        </Container>
-        <Grid
-          container
-          component="footer"
-          alignItems="center"
-          justifyContent="center"
-          mt={4}
-        >
-          <Typography color="textSecondary" variant="button">
-            Made by{" "}
-            <Button
-              component="a"
-              sx={{ margin: theme => theme.spacing(-0.5, -2, 0) }}
-              href="https://github.com/BlueLdr/pokefusion/"
-              target="_blank"
-            >
-              BlueLdr
-            </Button>
-            , forked from{" "}
-            <Button
-              component="a"
-              sx={{ margin: theme => theme.spacing(-0.5, -2, 0) }}
-              href="https://github.com/Aegide/Aegide.github.io"
-              target="_blank"
-            >
-              Aegide.github.io
-            </Button>
-          </Typography>
-        </Grid>
+        <Body>
+          <AppRouter />
+        </Body>
+        <Footer />
       </SiteContainer>
       <IntroModal />
     </Box>

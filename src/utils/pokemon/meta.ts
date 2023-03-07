@@ -17,6 +17,9 @@ export const getRandomPokeID = () =>
 export const getPokemonName = (
   id: (typeof PokemonId)[PokemonName]
 ): string | undefined => {
+  if (!PokemonId[id]) {
+    return;
+  }
   let name = PokemonId[id].toLowerCase();
   const fixIndex = POKEMON_NAME_FIXES.indexOf(name as PokemonName);
   if (fixIndex > -1) {

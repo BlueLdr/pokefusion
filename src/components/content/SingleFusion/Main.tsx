@@ -4,8 +4,9 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { getPokemonName, getRandomPokeID, useStateObject } from "~/utils";
 import { SpacedGrid } from "~/components";
 import { PokemonFusionView } from "./PokemonFusionView";
-import { PokemonFusionPicker } from "./PokemonFusionPicker";
+import { PokemonFusionPicker } from "../PokemonFusionPicker";
 
+import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import SwapHorizRounded from "@mui/icons-material/SwapHorizRounded";
 import ShuffleRounded from "@mui/icons-material/ShuffleRounded";
@@ -46,12 +47,12 @@ interface SelectionState {
 //================================================
 
 export const Main: React.FC = () => {
-  const { hash: hashRaw } = useLocation();
-  const hash = useMemo(() => hashRaw.replace(/^#/, ""), [hashRaw]);
+  const { pathname: pathnameRaw } = useLocation();
+  const pathname = useMemo(() => pathnameRaw.replace(/^\//, ""), [pathnameRaw]);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const initialState = useMemo<SelectionState>(() => {
-    const [leftId, rightId] = hash.split(".");
+    const [leftId, rightId] = pathname.split(".");
     if (
       !leftId ||
       isNaN(Number(leftId)) ||
@@ -75,7 +76,7 @@ export const Main: React.FC = () => {
         shiny: Boolean(searchParams.get("rightShiny")),
       },
     };
-  }, [hash, searchParams]);
+  }, [pathname, searchParams]);
 
   const [{ left: pokemonLeft, right: pokemonRight }, setState] =
     useStateObject<SelectionState>(initialState);
@@ -98,16 +99,16 @@ export const Main: React.FC = () => {
   );
 
   const onClickRandomize = useCallback(() => {
-    navigate({ hash: `${getRandomPokeID()}.${getRandomPokeID()}` });
+    navigate({ pathname: `/${getRandomPokeID()}.${getRandomPokeID()}` });
   }, [navigate]);
 
   const componentLocation = useMemo(() => {
-    const componentHash =
+    const componentPathname =
       !!pokemonLeft && !!pokemonRight
         ? `${pokemonLeft?.id}.${pokemonRight?.id}`
         : undefined;
     const params = new URLSearchParams();
-    if (!componentHash) {
+    if (!componentPathname) {
       return { search: params };
     }
     if (pokemonLeft?.shiny) {
@@ -117,19 +118,19 @@ export const Main: React.FC = () => {
       params.set("rightShiny", "true");
     }
     return {
-      hash: componentHash,
+      pathname: componentPathname,
       search: params,
     };
   }, [pokemonLeft, pokemonRight]);
 
   useEffect(() => {
-    console.log(`componentLocation: `, componentLocation, hash, searchParams);
     if (
-      (!!componentLocation.hash && componentLocation.hash !== hash) ||
+      (!!componentLocation.pathname &&
+        componentLocation.pathname !== pathname) ||
       componentLocation.search.toString() !== searchParams.toString()
     ) {
       navigate({
-        hash: componentLocation.hash,
+        pathname: `/${componentLocation.pathname}`,
         search: componentLocation.search.toString(),
       });
     }
@@ -137,18 +138,18 @@ export const Main: React.FC = () => {
   }, [componentLocation]);
 
   useEffect(() => {
-    console.log(`hash, searchParams: `, hash, searchParams, componentLocation);
     if (
-      componentLocation.hash !== hash ||
+      componentLocation.pathname !== pathname ||
       componentLocation.search.toString() !== searchParams.toString()
     ) {
       setState(initialState);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hash, searchParams]);
+  }, [pathname, searchParams]);
 
   return (
     <Grid
+      component={Container}
       container
       direction="column"
       alignItems="center"
