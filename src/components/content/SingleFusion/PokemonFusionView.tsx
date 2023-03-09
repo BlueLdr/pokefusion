@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { useFusionMeta } from "~/utils";
+import { getFusionNames, useFusionMeta } from "~/utils";
 import { FavoritesButton, PokemonFusionTypesDisplay } from "~/components";
 
 import Card from "@mui/material/Card";
@@ -49,9 +49,7 @@ export const PokemonFusionView: React.FC<PokemonFusionViewProps> = ({
     <Card variant="elevation">
       {fusionMeta && (
         <CardHeader
-          title={`${head?.name}${head?.shiny ? ` ✨` : ""} / ${body?.name}${
-            body?.shiny ? ` ✨` : ""
-          }`}
+          title={getFusionNames(head!, body!)}
           subheaderTypographyProps={{
             variant: "overline",
           }}

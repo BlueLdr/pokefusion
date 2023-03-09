@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { FavoritesButton } from "~/components";
-import { useFusionMeta } from "~/utils";
+import { getFusionNames, useFusionMeta } from "~/utils";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -82,9 +82,7 @@ export const MultiFusionItem: React.FC<PokemonFusionViewProps> = ({
         }}
         title={
           <>
-            {`${head?.name ?? "???"}${head?.shiny ? ` ✨` : ""} / ${
-              body?.name ?? "???"
-            }${body?.shiny ? ` ✨` : ""}`}
+            {getFusionNames(head!, body!)}
             {fusionMeta && (
               <Box ml={2} my={-2}>
                 <FavoritesButton fusion={fusionMeta} />

@@ -1,4 +1,12 @@
-export const loadStorage = <T>(key: string, def?: T): T | undefined => {
+interface LoadStorageFunction {
+  <T>(key: string, def?: never): T | undefined;
+  <T>(key: string, def: T): T;
+}
+
+export const loadStorage: LoadStorageFunction = <T>(
+  key: string,
+  def?: T
+): T | undefined => {
   const stored = localStorage.getItem(key);
   if (stored) {
     try {

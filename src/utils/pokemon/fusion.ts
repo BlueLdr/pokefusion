@@ -32,6 +32,11 @@ export const fusePokemonMeta = (
   },
 });
 
+export const getFusionNames = (head: PokemonMeta, body: PokemonMeta): string =>
+  `${head?.name ?? "???"}${head?.shiny ? ` ✨` : ""} / ${body?.name ?? "???"}${
+    body?.shiny ? ` ✨` : ""
+  }`;
+
 export const fusePokemon = (id1: number, id2: number) => {};
 
 export const getFusionId = (id1: number, id2: number) =>

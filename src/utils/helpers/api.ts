@@ -1,5 +1,14 @@
+const customImageCache = new Set<string>();
+
 //Error detection
-export const doesImageExist = (imageUrl: string) =>
+export const doesImageExist = async (imageUrl: string) =>
+  customImageCache.has(imageUrl) ||
   fetch(imageUrl, { method: "HEAD" })
-    .then(response => response.status !== 404)
+    .then(response => {
+      if (response.status !== 404) {
+        customImageCache.add(imageUrl);
+        return true;
+      }
+      return false;
+    })
     .catch(() => false);
