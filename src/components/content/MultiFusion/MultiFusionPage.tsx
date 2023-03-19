@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { getPokemonName, loadStorage, setStorage } from "~/utils";
-import { PokemonSelector, SpacedGrid } from "~/components";
+import { PokemonSelector } from "~/components";
 import { DEFAULT_PRESET_LIST } from "./constants";
-import { MultiFusionRow } from "./MultiFusionRow";
+import { MultiFusionGridItem } from "./MultiFusionGridItem";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -126,6 +126,14 @@ export const MultiFusionPage: React.FC = () => {
   }, [preset]);
 
   useEffect(() => {
+    const selected = presetList.find(p => p.name === preset);
+    if (JSON.stringify(list) !== JSON.stringify(selected?.list)) {
+      setPreset("");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [list]);
+
+  useEffect(() => {
     setStorage(MULTI_FUSION_PRESETS_STORAGE_KEY, presetList);
   }, [presetList]);
 
@@ -140,6 +148,7 @@ export const MultiFusionPage: React.FC = () => {
           position: "sticky",
           top: 0,
           zIndex: theme => theme.zIndex.appBar,
+          marginBottom: theme => theme.spacing(4),
         }}
       >
         <Container>
@@ -193,12 +202,39 @@ export const MultiFusionPage: React.FC = () => {
                 value={otherMonValue}
                 onChange={setOtherMonValue}
                 size="small"
+                fieldProps={{
+                  label: otherMonValue
+                    ? otherMonValue
+                    : "Select a Pokemon to fuse",
+                }}
               />
             </Grid>
           </Grid>
         </Container>
       </Toolbar>
       <Container>
+        <Grid
+          container
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          spacing={4}
+        >
+          {list.map((row, i) => (
+            <Grid item xs={12} md={6} lg={4}>
+              <MultiFusionGridItem
+                key={i}
+                mon={row}
+                onChangeMon={onEditRow}
+                onRemove={onRemoveRow}
+                otherMon={otherMon}
+              />
+            </Grid>
+          ))}
+          <Grid item xs={12} md={6} lg={4}>
+            <MultiFusionGridItem key={list.length} onChangeMon={onAddRow} />
+          </Grid>
+        </Grid>
+        {/*
         <SpacedGrid direction="column" spacing={4} mt={0}>
           {list.map((row, i) => (
             <MultiFusionRow
@@ -210,7 +246,7 @@ export const MultiFusionPage: React.FC = () => {
             />
           ))}
           <MultiFusionRow key={list.length} onChangeRowMon={onAddRow} />
-        </SpacedGrid>
+        </SpacedGrid>*/}
       </Container>
     </Grid>
   );

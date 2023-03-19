@@ -19,10 +19,7 @@ const muiExternalImportsOrder = [
   "@mui/utils",
 ];
 
-const muiComponentImportsOrder = [
-  "@mui/material/**",
-  "@mui/icons-material/*",
-];
+const muiComponentImportsOrder = ["@mui/material/**", "@mui/icons-material/*"];
 
 module.exports = {
   root: true,
@@ -44,6 +41,8 @@ module.exports = {
       {
         forbid: [
           "@mui/*/*/**",
+          "@mui/material",
+          "@mui/icons-material",
           "~/components/**/*",
           "~/components/!(routes)",
           "~/utils/**",

@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
       alignItems="center"
       justifyContent="center"
       spacing={4}
-      mt={4}
+      mt={0}
     >
       <Typography color="textSecondary" variant="button">
         Made by{" "}

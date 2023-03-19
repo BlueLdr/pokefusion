@@ -12,7 +12,7 @@ import type { PokemonName } from "~/data";
 //================================================
 
 export const getRandomPokeID = () =>
-  Math.floor(Math.random() * Math.floor(POKEMON_COUNT));
+  Math.floor(Math.random() * Math.floor(POKEMON_COUNT - 1)) + 1;
 
 export const getPokemonName = (
   id: (typeof PokemonId)[PokemonName]

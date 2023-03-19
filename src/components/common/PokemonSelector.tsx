@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { mergeDeep } from "immutable";
 import { useCallback, useMemo } from "react";
 
 import { enumValues, getPokemonName } from "~/utils";
@@ -18,6 +19,7 @@ import type {
   AutocompleteProps,
 } from "@mui/material/Autocomplete";
 import type { TextFieldProps } from "@mui/material/TextField";
+import type { StyleProps } from "~/theme";
 
 //================================================
 
@@ -30,6 +32,10 @@ const StyledTextField = styled(TextField)`
   //   width: ${({ theme }) => theme.spacing(64)};
   }
 `;
+
+const labelWithAdornmentsStyle: StyleProps = {
+  marginLeft: theme => theme.spacing(8),
+};
 
 //================================================
 
@@ -53,6 +59,7 @@ interface PokemonSelectorProps
   onChange: React.Dispatch<React.SetStateAction<PokemonId>>;
   fieldProps?: Partial<TextFieldProps>;
   disablePrevNextButtons?: boolean;
+  buttonsAsAdornments?: boolean;
 }
 
 export const PokemonSelector: React.FC<PokemonSelectorProps> = ({
@@ -60,6 +67,7 @@ export const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   fieldProps,
   value = null,
   disablePrevNextButtons,
+  buttonsAsAdornments,
   ...props
 }) => {
   const onChangeHandler = useCallback<
@@ -89,6 +97,45 @@ export const PokemonSelector: React.FC<PokemonSelectorProps> = ({
     };
   }, [value, disablePrevNextButtons]);
 
+  const prevButton = (
+    <Tooltip title={prev} placement="top">
+      <IconButton
+        disabled={!value || value === 1}
+        onClick={onClickPrevious}
+        disableRipple={false}
+        size={buttonsAsAdornments ? "small" : undefined}
+      >
+        <KeyboardArrowLeftRounded />
+      </IconButton>
+    </Tooltip>
+  );
+
+  const nextButton = (
+    <Tooltip title={next} placement="top">
+      <IconButton
+        disabled={!value || value === POKEMON_COUNT}
+        onClick={onClickNext}
+        disableRipple={false}
+        size={buttonsAsAdornments ? "small" : undefined}
+      >
+        <KeyboardArrowRightRounded />
+      </IconButton>
+    </Tooltip>
+  );
+
+  const extraProps = buttonsAsAdornments
+    ? mergeDeep(
+        {
+          InputProps: {
+            startAdornment: prevButton,
+            endAdornment: nextButton,
+          },
+          InputLabelProps: { sx: labelWithAdornmentsStyle },
+        },
+        fieldProps ?? {}
+      )
+    : fieldProps ?? {};
+
   const picker = (
     <Autocomplete<PokemonId, false, true, false>
       key="picker"
@@ -98,13 +145,24 @@ export const PokemonSelector: React.FC<PokemonSelectorProps> = ({
       disableClearable
       {...props}
       autoHighlight
-      renderInput={params => (
-        <StyledTextField {...params} label={value} {...(fieldProps ?? {})} />
-      )}
+      renderInput={params => {
+        const ref = params.InputProps.ref;
+        return (
+          <StyledTextField
+            label={value}
+            {...mergeDeep(params, extraProps ?? {})}
+            InputProps={{
+              ...mergeDeep(params.InputProps, extraProps.InputProps ?? {}),
+              ref,
+            }}
+          />
+        );
+      }}
       options={options}
       renderOption={renderOption}
       getOptionLabel={getOptionLabel}
       ListboxComponent={VirtualizedListboxComponent}
+      forcePopupIcon={buttonsAsAdornments ? false : undefined}
       slotProps={{
         popper: {
           keepMounted: true,
@@ -120,9 +178,10 @@ export const PokemonSelector: React.FC<PokemonSelectorProps> = ({
     />
   );
 
-  if (disablePrevNextButtons) {
+  if (disablePrevNextButtons || buttonsAsAdornments) {
     return picker;
   }
+
   return (
     <Grid
       container
@@ -131,31 +190,11 @@ export const PokemonSelector: React.FC<PokemonSelectorProps> = ({
       justifyContent="center"
       wrap="nowrap"
     >
-      <Grid item>
-        <Tooltip title={prev}>
-          <IconButton
-            disabled={!value || value === 1}
-            onClick={onClickPrevious}
-            disableRipple={false}
-          >
-            <KeyboardArrowLeftRounded />
-          </IconButton>
-        </Tooltip>
-      </Grid>
+      <Grid item>{prevButton}</Grid>
       <Grid item flex="1 1 100%" sx={{ maxWidth: theme => theme.spacing(64) }}>
         {picker}
       </Grid>
-      <Grid item>
-        <Tooltip title={next}>
-          <IconButton
-            disabled={!value || value === POKEMON_COUNT}
-            onClick={onClickNext}
-            disableRipple={false}
-          >
-            <KeyboardArrowRightRounded />
-          </IconButton>
-        </Tooltip>
-      </Grid>
+      <Grid item>{nextButton}</Grid>
     </Grid>
   );
 };

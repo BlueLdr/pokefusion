@@ -1,4 +1,4 @@
-import deepmerge from "deepmerge";
+import { mergeDeep } from "immutable";
 import { useMemo, Children, isValidElement, forwardRef } from "react";
 
 import { classNames } from "~/utils";
@@ -58,12 +58,12 @@ export const SpacedGrid = forwardRef<HTMLDivElement, SpacedGridProps>(
         {...props}
         sx={
           disableOrthogonalSpacing
-            ? deepmerge<StyleProps>(
+            ? mergeDeep<StyleProps>(
                 props.direction === "column" ||
                   props.direction === "column-reverse"
                   ? disableXSpacingStyle
                   : disableYSpacingStyle,
-                props.sx ?? {}
+                props.sx ?? ({} as any)
               )
             : props.sx
         }

@@ -59,8 +59,13 @@ export const MultiFusionRowPicker: React.FC<MultiFusionRowPickerProps> = ({
     <PokemonSelector
       value={id}
       onChange={setId}
-      fieldProps={{ variant: "filled", ...fieldProps }}
+      fieldProps={{
+        //variant: "filled",
+        ...fieldProps,
+        InputProps: { placeholder: undefined },
+      }}
       disableClearable={onClear ? undefined : true}
+      buttonsAsAdornments
     />
   );
 };
